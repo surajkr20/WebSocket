@@ -24,7 +24,26 @@ app.get('/', (req, res) => {
 
 // Handle Socket.IO connections
 io.on('connection', (socket) => {
-  console.log("id : ", socket.id);
+    console.log("user connected") 
+    console.log("id : ", socket.id);
+
+    socket.on('disconnect', () => {
+        console.log("user disconnected", socket.id);
+    });
+
+    // const details = {
+    //     fullname: {
+    //         firstname: "suraj",
+    //         lastname: "kumar"
+    //     },
+    // };
+
+    // // send connection to specific client
+    // socket.broadcast.emit('message', details);
+
+    // // send msg to all connected clients
+    // socket.emit('message', details);
+
 });
 
 // Start the HTTP server
