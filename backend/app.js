@@ -8,8 +8,14 @@ const port = 7000; // Define the port
 // Create an HTTP server
 const server = createServer(app);
 
-// Attach Socket.IO to the server
-const io = new Server(server);
+// Attach Socket.IO to the server and enabling cors package for vite
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5173/",
+        methods: ['GET', 'POST'],
+        credentials: true
+    }
+});
 
 // Define the root route
 app.get('/', (req, res) => {
@@ -20,7 +26,7 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   console.log('User connected');
   console.log('User ID:', socket.id);
-    
+
 });
 
 // Start the HTTP server
