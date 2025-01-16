@@ -9,7 +9,13 @@ const port = 7000; // Define the port
 const server = createServer(app);
 
 // Attach Socket.IO to the server
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173", // Ensure no trailing slash here
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
 
 // Define the root route
 app.get('/', (req, res) => {
@@ -18,9 +24,7 @@ app.get('/', (req, res) => {
 
 // Handle Socket.IO connections
 io.on('connection', (socket) => {
-  console.log('User connected');
-  console.log('User ID:', socket.id);
-    
+  console.log("id : ", socket.id);
 });
 
 // Start the HTTP server
